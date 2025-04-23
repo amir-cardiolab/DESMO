@@ -464,8 +464,6 @@ class DESMO(nn.Module):
         super(DESMO, self).__init__()
         
         # optimizable modes
-#         self.phi1 = nn.Parameter(torch.ones(n))
-#         self.phi2 = nn.Parameter(torch.ones(n))
         
         self.phi_list = nn.ParameterList([nn.Parameter(torch.ones(n)) for _ in range(r_DESMO)])
         
@@ -789,19 +787,6 @@ for epoch in range(num_epochs):
 
         total_loss = loss +  beta * (ortho_loss_spatial)+ l1_lambda*l1_loss
         
-        # # Plot mean flow (assuming X_mean is reshaped to (30, 30, 30))
-        # if epoch % 100 == 0 and plot_DESMO_flag:
-        #     ttime = time_to_plot
-        #     plt.subplot(2, 2, 1)
-        #     plt.imshow(np.reshape(snapshot.detach().cpu().numpy(),(m,x_range,y_range,z_range))[ttime,:, :,plane_to_plot].T, origin='lower')
-        #     plt.title("True")
-        #     plt.colorbar()
-        #     plt.subplot(2, 2, 2)
-        #     plt.imshow(np.reshape(recon_combined.detach().cpu().numpy(),(m,x_range,y_range,z_range))[ttime,:, :,plane_to_plot].T, origin='lower')
-        #     plt.title("Predicted")
-        #     plt.colorbar()
-        #     plt.show()
-        #     plt.close()
             
         optimizer.zero_grad()
         total_loss.backward()

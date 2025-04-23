@@ -9,12 +9,12 @@ This repository contains the Python implementation for our paper:
 
 ## Repository Overview
 
-This repository contains four different versions of the DESMO framework, each tailored for specific modeling needs and types of flows.
+This repository contains four different versions of the DESMO framework.
 
 ### `DESMO/` —  **Main DESMO Model**
-Performs sparse modal optimization using polynomial and symbolic libraries.
+Performs sparse modal optimization using polynomials and nonlinear functions (sin, cos, tanh) to create a modal candidate library.
 - `cylinder_flow`: 2D vortex shedding behind a cylinder (Re = 100, periodic)
-- `aneurysm`: 3D pulsatile blood flow in a cerebral aneurysm
+- `aneurysm`: 3D pulsatile blood flow in a cerebral aneurysm (periodic)
 - `turbulent_channel`: 2D slice of turbulent channel flow from the Johns Hopkins Turbulence Database (non-periodic)
 
 ### `DESMO_Fourier/` — **Fourier Expansion Version**
@@ -23,7 +23,7 @@ Uses **Fourier series** to model temporal coefficients, only works for **time-pe
 - `aneurysm`
 
 ### `DESMO_AE/` — **Autoencoder Version**
-Uses an autoencoder to learn latent modal structure directly from data.
+Uses an autoencoder to learn latent modal structure directly from data, instead of initializing with POD.
 - `cylinder_flow`
 
 ### `DESMO_SR/` — **Symbolic Regression Version**

@@ -1446,49 +1446,6 @@ if plot_DESMO_flag:
     plotter2.add_title("AE SR2", font_size=10)
     plotter2.view_xy()  # Top-down view
 
-#     # Fourth subplot: AE mode 2
-#     pv_mesh4 = pv.wrap(mesh)  # Create a new mesh for the fourth subplot
-#     pv_mesh4.point_data["AE2"] = latent_spatial[:, 1]  # Set AE mode 2 data
-#     plotter2.subplot(1, 1)  # Position (1, 1)
-#     plotter2.add_mesh(
-#         pv_mesh4,
-#         scalars="AE2",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'AE2', 'n_labels': 2}
-#     )
-#     plotter2.add_title("AE mode2", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
-
-#     # Third subplot: AE mode 1
-#     pv_mesh5 = pv.wrap(mesh)  # Create a new mesh for the third subplot
-#     pv_mesh5.point_data["sinAE1"] = np.sin(model_desmo.omega_list[0].detach().cpu().numpy() * latent_spatial[:, 0])  # Set AE mode 1 data
-#     plotter2.subplot(2, 0)  # Position (1, 0)
-#     plotter2.add_mesh(
-#         pv_mesh5,
-#         scalars="sinAE1",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'sinAE1', 'n_labels': 2}
-#     )
-#     plotter2.add_title("sinAE mode1", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
-#     # Fourth subplot: AE mode 2
-#     pv_mesh6 = pv.wrap(mesh)  # Create a new mesh for the fourth subplot
-#     pv_mesh6.point_data["sinAE2"] = np.sin(model_desmo.omega_list[3].detach().cpu().numpy() * latent_spatial[:, 1])  # Set AE mode 2 data
-#     plotter2.subplot(2, 1)  # Position (1, 1)
-#     plotter2.add_mesh(
-#         pv_mesh6,
-#         scalars="sinAE2",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'sinAE2', 'n_labels': 2}
-#     )
-#     plotter2.add_title("sinAE mode2", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
     # Show the plot
     plotter2.show()
 #     plotter2.save_graphic('./figures/DESMO/modes.pdf')
@@ -1673,62 +1630,6 @@ if plot_DESMO_flag:
     plotter2.add_title("Predicted", font_size=10)
     plotter2.view_xy()  # Top-down view
 
-#     # Third subplot: AE mode 1
-#     pv_mesh3 = pv.wrap(mesh)  # Create a new mesh for the third subplot
-#     pv_mesh3.point_data["AE2"] = recon_dual_2[ttime, :]  # Set AE mode 1 data
-#     plotter2.subplot(1, 0)  # Position (1, 0)
-#     plotter2.add_mesh(
-#         pv_mesh3,
-#         scalars="AE2",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'AE2', 'n_labels': 2}
-#     )
-#     plotter2.add_title("AE SR2", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
-#     # Fourth subplot: AE mode 2
-#     pv_mesh4 = pv.wrap(mesh)  # Create a new mesh for the fourth subplot
-#     pv_mesh4.point_data["AE2"] = latent_spatial[:, 1]  # Set AE mode 2 data
-#     plotter2.subplot(1, 1)  # Position (1, 1)
-#     plotter2.add_mesh(
-#         pv_mesh4,
-#         scalars="AE2",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'AE2', 'n_labels': 2}
-#     )
-#     plotter2.add_title("AE mode2", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
-
-#     # Third subplot: AE mode 1
-#     pv_mesh5 = pv.wrap(mesh)  # Create a new mesh for the third subplot
-#     pv_mesh5.point_data["sinAE1"] = np.sin(model_desmo.omega_list[0].detach().cpu().numpy() * latent_spatial[:, 0])  # Set AE mode 1 data
-#     plotter2.subplot(2, 0)  # Position (1, 0)
-#     plotter2.add_mesh(
-#         pv_mesh5,
-#         scalars="sinAE1",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'sinAE1', 'n_labels': 2}
-#     )
-#     plotter2.add_title("sinAE mode1", font_size=10)
-#     plotter2.view_xy()  # Top-down view
-
-#     # Fourth subplot: AE mode 2
-#     pv_mesh6 = pv.wrap(mesh)  # Create a new mesh for the fourth subplot
-#     pv_mesh6.point_data["sinAE2"] = np.sin(model_desmo.omega_list[3].detach().cpu().numpy() * latent_spatial[:, 1])  # Set AE mode 2 data
-#     plotter2.subplot(2, 1)  # Position (1, 1)
-#     plotter2.add_mesh(
-#         pv_mesh6,
-#         scalars="sinAE2",
-#         cmap="turbo",
-#         show_edges=False,
-#         scalar_bar_args={'title': 'sinAE2', 'n_labels': 2}
-#     )
-#     plotter2.add_title("sinAE mode2", font_size=10)
-#     plotter2.view_xy()  # Top-down view
 
     # Show the plot
     plotter2.show()

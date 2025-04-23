@@ -301,25 +301,6 @@ def POD_analysis(X, plot_flag = True, x_range = 30, y_range = 30, z_range = 30, 
 
 # ## POD ##
 
-# In[6]:
-
-
-# pv_mesh = pv.wrap(mesh)
-# window_size = (600, 400)
-# # Add the scalar data (X[:, 0]) to the mesh as a scalar field
-# # Make sure the length of X[:, 0] matches the number of points in the mesh
-# pv_mesh.point_data["velocity"] = X[:, 300]#+X_mean
-
-# # Now plot the mesh with the scalar values
-# plotter = pv.Plotter(window_size=window_size)
-# plotter.add_mesh(pv_mesh, scalars="velocity", cmap="viridis", show_edges=False)
-# # Set predefined views
-# plotter.view_xy()  # Top-down view
-# plotter.camera.zoom(1.5)  # Zoom in by a factor of 1.5
-# plotter.show()
-# # plotter.save_graphic("mean.pdf")
-# plotter.close()
-
 
 # In[56]:
 
@@ -735,10 +716,6 @@ def nonlinear_norm(sin_coef,cos_coef,tanh_coef,zsin,zcos,ztanh,phi,omega,period)
         norms.append(result_cos)
         norms.append(result_tanh)
         
-        # Print the result
-#         print(f"Mode {i}: SinNorm = {result_sin}")
-#         print(f"Mode {i}: CosNorm = {result_cos}")
-#         print(f"Mode {i}: TanhNorm = {result_tanh}")
         
     return norms
 
@@ -783,35 +760,6 @@ for epoch in range(num_epochs):
 
         total_loss = loss +  beta * (ortho_loss_spatial)+ l1_lambda*l1_loss
         
-        # # Plot mean flow (assuming X_mean is reshaped to (30, 30, 30))
-        # if epoch % 100 == 0 and plot_DESMO_flag:
-        #     ttime = time_to_plot
-        #     plotter = pv.Plotter(shape=(1, 3), window_size=(900, 300))
-        #     pv_mesh_d = pv.wrap(mesh)
-        #     pv_mesh_AE = pv.wrap(mesh)
-        #     pv_mesh_POD = pv.wrap(mesh)
-        #     pv_mesh_d.point_data["velocity"] = snapshot[ttime,:].detach().cpu().numpy()  # Set mean flow data
-        #     pv_mesh_AE.point_data["AE approx"] = recon_combined[ttime,:].detach().cpu().numpy()  # Set mean flow data
-        #     pv_mesh_POD.point_data["POD approx"] = X_approx[:,ttime]
-        #     plotter.subplot(0, 0)  # Position (0, 0)
-        #     plotter.add_mesh(pv_mesh_d, scalars="velocity", cmap="viridis", show_edges=False,scalar_bar_args={'n_labels': 2})
-        #     plotter.add_title("True")
-        #     plotter.view_xy()  # Top-down view
-
-        #     plotter.subplot(0, 1)  # Position (0, 0)
-        #     plotter.add_mesh(pv_mesh_AE, scalars="AE approx", cmap="viridis", show_edges=False,scalar_bar_args={'n_labels': 2})
-        #     plotter.add_title("AE Predicted")
-        #     plotter.view_xy()  # Top-down view
-
-
-        #     plotter.subplot(0, 2)  # Position (0, 0)
-        #     plotter.add_mesh(pv_mesh_POD, scalars="POD approx", cmap="viridis", show_edges=False,scalar_bar_args={'n_labels': 2})
-        #     plotter.add_title("POD Predicted")
-        #     plotter.view_xy()  # Top-down view
-            
-        #     # Show the plot
-        #     plotter.show()
-        #     plotter.close()
             
         optimizer.zero_grad()
         total_loss.backward()
@@ -1090,15 +1038,6 @@ X_approx, POD_modes, temporal_coeffs, S = POD_analysis(X,plot_POD_flag, x_range,
 r = r_DESMO*2
 X_approx, POD_modes, temporal_coeffs, S = POD_analysis(X,plot_POD_flag, x_range, y_range, z_range, r)
 
-
-# In[74]:
-
-
-# # Iterate over all named parameters in the model
-# torch.set_printoptions(threshold=100)
-# for name, param in model_desmo.named_parameters():
-#     if param.requires_grad:  # Check if the parameter is trainable
-#         print(f"Parameter: {name}, Value: {param.data}");
 
 
 # In[75]:

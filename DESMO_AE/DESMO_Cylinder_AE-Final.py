@@ -684,7 +684,7 @@ class Autoencoder_Linear_Temporal(nn.Module):
 
 # In[26]:
 
-
+# DESMO-Autoencoder class
 class SINDyAutoencoder(nn.Module):
     def __init__(self, n, m, polyorder,r):
         super(SINDyAutoencoder, self).__init__()
@@ -707,40 +707,35 @@ class SINDyAutoencoder(nn.Module):
         
         
         
-        self.zcos_coef_1 = nn.Parameter(torch.ones(m))  # z1 * phi2
-        self.zcos_coef_2 = nn.Parameter(torch.ones(m))  # z2 * phi1
-        self.zsin_coef_1 = nn.Parameter(torch.ones(m))  # z1 * phi2
-        self.zsin_coef_2 = nn.Parameter(torch.ones(m))  # z2 * phi1
+        self.zcos_coef_1 = nn.Parameter(torch.ones(m))  
+        self.zcos_coef_2 = nn.Parameter(torch.ones(m))  
+        self.zsin_coef_1 = nn.Parameter(torch.ones(m))  
+        self.zsin_coef_2 = nn.Parameter(torch.ones(m))  
         
-        self.ztanh_coef_1 = nn.Parameter(torch.ones(m))  # z1 * phi2
-        self.ztanh_coef_2 = nn.Parameter(torch.ones(m))  # z2 * phi1
+        self.ztanh_coef_1 = nn.Parameter(torch.ones(m))  
+        self.ztanh_coef_2 = nn.Parameter(torch.ones(m))  
 
         
-        self.cos_coef_1 = nn.Parameter(torch.tensor(1.0))  # z1 * phi2
-        self.cos_coef_2 = nn.Parameter(torch.tensor(1.0))  # z2 * phi1
-        self.sin_coef_1 = nn.Parameter(torch.tensor(1.0))  # z1 * phi2
-        self.sin_coef_2 = nn.Parameter(torch.tensor(1.0))  # z2 * phi1
-        self.tanh_coef_1 = nn.Parameter(torch.tensor(1.0))  # z1 * phi2
-        self.tanh_coef_2 = nn.Parameter(torch.tensor(1.0))  # z2 * phi1
+        self.cos_coef_1 = nn.Parameter(torch.tensor(1.0))  
+        self.cos_coef_2 = nn.Parameter(torch.tensor(1.0))  
+        self.sin_coef_1 = nn.Parameter(torch.tensor(1.0))  
+        self.sin_coef_2 = nn.Parameter(torch.tensor(1.0))  
+        self.tanh_coef_1 = nn.Parameter(torch.tensor(1.0))  
+        self.tanh_coef_2 = nn.Parameter(torch.tensor(1.0))  
 
         
-        self.omega_phi1 = nn.Parameter(torch.tensor(10000.0))  # Frequency for phi1
-        self.omega_phi2 = nn.Parameter(torch.tensor(1000.0))  # Frequency for phi2
-        self.omega_phi3 = nn.Parameter(torch.tensor(10000.0))  # Frequency for phi1
-        self.omega_phi4 = nn.Parameter(torch.tensor(1000.0))  # Frequency for phi2
-        self.omega_phi5 = nn.Parameter(torch.tensor(100.0))  # Frequency for phi1
-        self.omega_phi6 = nn.Parameter(torch.tensor(100.0))  # Frequency for phi2
+        self.omega_phi1 = nn.Parameter(torch.tensor(10000.0))  # Frequency for sin phi1
+        self.omega_phi2 = nn.Parameter(torch.tensor(1000.0))  # Frequency for cos phi1
+        self.omega_phi3 = nn.Parameter(torch.tensor(10000.0))  # Frequency for tanh phi1
+        self.omega_phi4 = nn.Parameter(torch.tensor(1000.0))  # Frequency for sin phi2
+        self.omega_phi5 = nn.Parameter(torch.tensor(100.0))  # Frequency for cos phi2
+        self.omega_phi6 = nn.Parameter(torch.tensor(100.0))  # Frequency for tanh phi2
         
 
                
         
     def forward(self, X):
 
-        # Initialize with POD modes and coefficients
-#         phi1 = self.phi1* torch.from_numpy(POD_modes[:,0]).type(torch.FloatTensor).to(device)
-
-
-#         phi2 = self.phi2* torch.from_numpy(POD_modes[:,1]).type(torch.FloatTensor).to(device)
         
         latent_spatial, ae_rec = self.temporal_ae(X.T)  # phi components
         phi1 = latent_spatial[:, 0].unsqueeze(1)  # First latent spatial vector
@@ -851,7 +846,6 @@ set_seed(43)
 
 
 # Training loop remains similar
-# noise_factor = 0.01
 num_epochs = 100000
 beta = 1e-3 # orthogonal loss
 l1_lambda = 1e-6 #sparsity loss
@@ -861,20 +855,11 @@ loss_list_dual = []
 for epoch in range(num_epochs):
     for x in data_loader:  # Iterate over batches for spatial data
         snapshot = x[0].type(torch.FloatTensor).to(device)
-#         snapshot_noisy = snapshot + torch.randn_like(snapshot) * noise_factor
-
 
         recon_combined, latent_spatial, latent_temporal, ae_rec = model_dualAE(snapshot)
-#         print("rec_AE",rec_AE.shape)
-#         print("snapshot:",snapshot.shape)
-#         print("recon_combined:",recon_combined.shape)
+
         ortho_loss_spatial = (criterion(latent_spatial[:,0] @ latent_spatial[:,1].T,torch.zeros(1).to(device)))
-#                              criterion(latent_spatial[:,0] @ torch.sin(model_dualAE.omega_phi1 * latent_spatial[:,0].T),torch.zeros(1).to(device)) +
-#                              criterion(torch.sin(model_dualAE.omega_phi3 * latent_spatial[:,1].T) @ torch.sin(model_dualAE.omega_phi1 * latent_spatial[:,0].T),torch.zeros(1).to(device)) +
-#                              criterion(latent_spatial[:,1] @ torch.sin(model_dualAE.omega_phi1 * latent_spatial[:,0].T),torch.zeros(1).to(device)))
-#         ortho_loss_temporal = (criterion(latent_temporal[:,0] @ latent_temporal[:,1].T,torch.zeros(1).to(device)))
-#                               criterion(latent_temporal[:,0] @ latent_temporal[:,2].T,torch.zeros(1).to(device)) +
-#                               criterion(latent_temporal[:,1] @ latent_temporal[:,2].T,torch.zeros(1).to(device)))
+
         # Compute loss (compare combined reconstruction with original data)
         loss = criterion(recon_combined, snapshot)
         ae_loss = criterion(ae_rec, snapshot)
@@ -882,10 +867,7 @@ for epoch in range(num_epochs):
         l1_loss = (torch.norm(model_dualAE.c_coef, p=1) + torch.norm(model_dualAE.cos_coef_1,p=1) + 
                   torch.norm(model_dualAE.cos_coef_2,p=1) + torch.norm(model_dualAE.sin_coef_1,p=1) + 
                   torch.norm(model_dualAE.sin_coef_2,p=1))
-#         ortho_loss = criterion(torch.matmul(dec1.view(-1),dec2.view(-1).T), torch.zeros(1).to(device))
-        
-#         ortho_loss = ortho_loss/dec1.shape[0]
-        #beta*dec_sim
+
         total_loss = loss +  beta * (ortho_loss_spatial)+ l1_lambda*l1_loss + ae_beta * ae_loss
         
         # Plot mean flow (assuming X_mean is reshaped to (30, 30, 30))
@@ -1117,9 +1099,6 @@ plt.show()
 
 # In[39]:
 
-
-# X_unnorm = out_x*(Xmax-Xmin)+Xmin
-# Xrec_unnorm = recon_dual*(Xmax-Xmin)+Xmin
 
 err_AEDual  = np.linalg.norm(X-recon_dual.T)/np.linalg.norm(X)
 print("AEDual error with ",r," modes:",err_AEDual)

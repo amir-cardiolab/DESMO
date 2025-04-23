@@ -440,10 +440,7 @@ class DESMO(nn.Module):
     def __init__(self, n, m, polyorder,r_DESMO, omega_init = 10000):
         super(DESMO, self).__init__()
         
-        # optimizable modes
-#         self.phi1 = nn.Parameter(torch.ones(n))
-#         self.phi2 = nn.Parameter(torch.ones(n))
-        
+        # optimizable modes  
         self.phi_list = nn.ParameterList([nn.Parameter(torch.ones(n)) for _ in range(r_DESMO)])
         
         # calculate number of polynomial terms for r variables of order polyorder
@@ -520,7 +517,6 @@ class DESMO(nn.Module):
 # In[15]:
 
 
-# Initialize the dual autoencoder
 polyorder = 2
 omega_init = 10000
 model_desmo = DESMO(n, m, polyorder,r_DESMO,omega_init).to(device)
@@ -882,10 +878,6 @@ def nonlinear_norm(sin_coef,cos_coef,tanh_coef,zsin,zcos,ztanh,phi,omega):
         norms.append(result_cos)
         norms.append(result_tanh)
         
-        # Print the result
-#         print(f"Mode {i}: SinNorm = {result_sin}")
-#         print(f"Mode {i}: CosNorm = {result_cos}")
-#         print(f"Mode {i}: TanhNorm = {result_tanh}")
         
     return norms
 

@@ -500,8 +500,6 @@ class DESMO(nn.Module):
         super(DESMO, self).__init__()
         
         # optimizable modes
-#         self.phi1 = nn.Parameter(torch.ones(n))
-#         self.phi2 = nn.Parameter(torch.ones(n))
         
         self.phi_list = nn.ParameterList([nn.Parameter(torch.ones(n)) for _ in range(r_DESMO)])
         
