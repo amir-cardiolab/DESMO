@@ -1,6 +1,5 @@
 #  DESMO: Decomposed Sparse Modal Optimization
 
-**Interpretable Reduced-Order Modeling of Unsteady Flows** 
 This repository contains the Python implementation for our paper:
 
 **_Decomposed Sparse Modal Optimization: Interpretable Reduced-Order Modeling of Unsteady Flows_**
@@ -15,7 +14,7 @@ This repository contains four different versions of the DESMO framework.
 Performs sparse modal optimization using polynomials and nonlinear functions (sin, cos, tanh) to create a modal candidate library.
 - `cylinder_flow`: 2D vortex shedding behind a cylinder (Re = 100, periodic)
 - `aneurysm`: 3D pulsatile blood flow in a cerebral aneurysm (periodic)
-- `turbulent_channel`: 2D slice of turbulent channel flow from the Johns Hopkins Turbulence Database (non-periodic)
+- `turbulent_channel`: 2D slice of turbulent channel flow from the [Johns Hopkins Turbulence Database](https://turbulence.pha.jhu.edu/Channel_Flow.aspx) (non-periodic)
 
 ### `DESMO_Fourier/` — **Fourier Expansion Version**
 Uses **Fourier series** to model temporal coefficients, only works for **time-periodic** flows.
@@ -53,3 +52,6 @@ Main software packages:
 
 > ⚠️ Some additional packages may appear in the import section for legacy/intermediate versions, even if not actively used in the final code.
 
+
+___
+ <img src="./DESMO/cylinder_flow/Cylinder_modes.png" alt="show" style="zoom:70%;" /> 
