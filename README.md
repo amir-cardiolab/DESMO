@@ -1,26 +1,54 @@
-# DESMO
-Decomposed sparse modal optimization (DESMO)
+#  DESMO: Decomposed Sparse Modal Optimization
 
+**Interpretable Reduced-Order Modeling of Unsteady Flows** 
+This repository contains the Python implementation for our paper:
 
-This repository contains the python/ipynb codes for the following paper:
-Decomposed Sparse Modal Optimization: Interpretable Reduced-Order Modeling of Unsteady Flows
-
+**_Decomposed Sparse Modal Optimization: Interpretable Reduced-Order Modeling of Unsteady Flows_**
 
 ---
 
-The repository contains four different version of DESMO with a few test cases.
+## Repository Overview
 
-**DESMO**: the main DESMO model. It contains three test cases:
+This repository contains four different versions of the DESMO framework, each tailored for specific modeling needs and types of flows.
 
-- cylinder_flow: 2D flow over a cylinder at Re=100, leading to the periodic von Karman vortex street
-- aneurysm: 3D blood flow in a cerebral aneurysm
-- turbulent_channel: 2D slice of the turbulent channel flow from the Johns Hopkins Turbulence Databases
+### `DESMO/` —  **Main DESMO Model**
+Performs sparse modal optimization using polynomial and symbolic libraries.
+- `cylinder_flow`: 2D vortex shedding behind a cylinder (Re = 100, periodic)
+- `aneurysm`: 3D pulsatile blood flow in a cerebral aneurysm
+- `turbulent_channel`: 2D slice of turbulent channel flow from the Johns Hopkins Turbulence Database (non-periodic)
 
+### `DESMO_Fourier/` — **Fourier Expansion Version**
+Uses **Fourier series** to model temporal coefficients, only works for **time-periodic** flows.
+- `cylinder_flow`
+- `aneurysm`
 
-**DESMO_Fourier**: Uses Fourier-series for the temporal coefficients. It is only applicable for time-periodic flows. It contains two test cases:
-- cylinder_flow
-- aneurysm
+### `DESMO_AE/` — **Autoencoder Version**
+Uses an autoencoder to learn latent modal structure directly from data.
+- `cylinder_flow`
 
-**DESMO_AE**: Uses an autoencoder for finding the latent modes. It contains one test case, the flow over a cylinder.
+### `DESMO_SR/` — **Symbolic Regression Version**
+Fits a dynamical system in the form `dz/dt = f(z)` to temporal coefficients via **symbolic regression**.
+- `cylinder_flow` (post-processed after DESMO fit)
 
-**DESMO_SR**: Uses symbolic regression for fitting a dynamical systems model to the temporal coefficients in the form of dz/dt=f(z). It contains one test case, the flow over a cylinder. The dynamical systems fit is done in a postprocessing step, after fitting the DESMO model.
+---
+
+##  Folder Contents
+
+Each test case folder contains:
+- `*.py` – Main DESMO implementation script
+- `*.pt` – Trained model weights (PyTorch)
+- `*.out` – Training logs and loss outputs
+- `*.sh` – Shell scripts used to run experiments on HPC systems
+
+---
+
+## Dependencies
+
+Main software packages:
+- `pytorch`
+- `numpy`
+- `vtk`
+- `pyvista`
+
+> ⚠️ Some additional packages may appear in the import section for legacy/intermediate versions, even if not actively used in the final code.
+
