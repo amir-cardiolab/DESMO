@@ -54,4 +54,4 @@ Main software packages:
 
 
 ___
- <img src="./DESMO/cylinder_flow/Cylinder_modes.png" alt="show" style="zoom:70%;" /> 
+ <img src="./DESMO/cylinder_flow/Cylinder_modes.jpg" alt="show" style="zoom:70%;" /> 
