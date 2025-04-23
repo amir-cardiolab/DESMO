@@ -49,6 +49,7 @@ Main software packages:
 - `numpy`
 - `vtk`
 - `pyvista`
+- `pysr` - for the DESMO_SR version only
 
 > ⚠️ Some additional packages may appear in the import section for legacy/intermediate versions, even if not actively used in the final code.
 
